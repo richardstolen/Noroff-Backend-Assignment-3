@@ -1,6 +1,5 @@
 ﻿using Backend_Development_Assignment_3.Models;
 using Microsoft.EntityFrameworkCore;
-using System.Configuration;
 
 
 namespace Backend_Development_Assignment_3.Data
