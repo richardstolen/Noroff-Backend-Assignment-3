@@ -7,5 +7,6 @@
         public string? Alias { get; set; }
         public Gender Gender { get; set; }
         public string? PictureUrl { get; set; }
+        public List<Movie>? Movies { get; set; }
     }
 }
