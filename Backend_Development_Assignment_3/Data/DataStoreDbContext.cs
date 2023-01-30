@@ -14,5 +14,12 @@ namespace Backend_Development_Assignment_3.Data
 
         }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Movie>().HasData(DataSeeder.GetMovies());
+            modelBuilder.Entity<Character>().HasData(DataSeeder.GetCharacters());
+            modelBuilder.Entity<Franchise>().HasData(DataSeeder.GetFranchises());
+            modelBuilder.Entity("CharacterMovie").HasData(DataSeeder.SetRelationships());
+        }
     }
 }
