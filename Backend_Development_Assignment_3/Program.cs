@@ -1,3 +1,6 @@
+using Backend_Development_Assignment_3.Data;
+using Microsoft.EntityFrameworkCore;
+
 namespace Backend_Development_Assignment_3
 {
     public class Program
@@ -12,6 +15,10 @@ namespace Backend_Development_Assignment_3
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            builder.Services.AddDbContext<DataStoreDbContext>(options =>
+            {
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+            });
 
             var app = builder.Build();
 
