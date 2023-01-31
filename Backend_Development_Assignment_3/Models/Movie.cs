@@ -8,7 +8,7 @@ namespace Backend_Development_Assignment_3.Models
 
         [Required]
         [MaxLength(50)]
-        public string? Title { get; set; }
+        public string Title { get; set; }
 
         [MaxLength(50)]
         public string? Genre { get; set; }
