@@ -27,6 +27,16 @@ namespace Backend_Development_Assignment_3.Data
                     PictureUrl="https://static.bokelskere.no/452990425bf3ebf21bbd5132dc0907472ee5a1f237f528af34fe14d1.jpeg",
                     TrailerUrl="https://www.youtube.com/watch?v=gYbW1F_c9eM",
                     FranchiseId = 2,
+                },
+                new Movie() {
+                    Id=3,
+                    Title="Mamma Mia",
+                    Genre="Musical",
+                    ReleaseYear=2008,
+                    Director="Phyllida Lloyd",
+                    PictureUrl="https://m.media-amazon.com/images/M/MV5BMTA2MDU0MjM0MzReQTJeQWpwZ15BbWU3MDYwNzgwNzE@._V1_.jpg",
+                    TrailerUrl="https://www.youtube.com/watch?v=lkN-A00WLYE",
+                    FranchiseId=3,
                 }
             };
         }
@@ -62,6 +72,20 @@ namespace Backend_Development_Assignment_3.Data
                     Alias="null",
                     Gender=Gender.Male,
                     PictureUrl="https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/Star_Wars_-_Darth_Vader.jpg/375px-Star_Wars_-_Darth_Vader.jpg"
+                },
+                new Character() {
+                    Id=5,
+                    FullName="Sophie",
+                    Alias="null",
+                    Gender=Gender.Female,
+                    PictureUrl="https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Amanda_Seyfried_%282019%29.jpg/375px-Amanda_Seyfried_%282019%29.jpg"
+                },
+                new Character() {
+                    Id=6,
+                    FullName="Ron Weasley",
+                    Alias="null",
+                    Gender=Gender.Female,
+                    PictureUrl="https://upload.wikimedia.org/wikipedia/en/5/5e/Ron_Weasley_poster.jpg"
                 }
             };
         }
@@ -75,10 +99,20 @@ namespace Backend_Development_Assignment_3.Data
                     Name="Lord of the rings",
                     Description="Frodo takes a ring to a mountain",
                 },
-                 new Franchise() {
+                new Franchise() {
                     Id=2,
                     Name="Star Wars",
                     Description="A Fascist government led by two religious fanatics with superpowers, is overthrown by a terrorist organisation supporting another off-shoot branch of religious fanatics with superpowers (who kidnap infants to indoctrinate them) and one of their heroes is space big-foot.",
+                },
+                new Franchise() {
+                    Id=3,
+                    Name="Mamma mia",
+                    Description="Singing in Greece",
+                },
+                 new Franchise() {
+                    Id=4,
+                    Name="Harry Potter",
+                    Description="You are a wizard harry",
                 }
             };
         }
@@ -89,7 +123,9 @@ namespace Backend_Development_Assignment_3.Data
                new Dictionary<string, object>() { ["CharacterId"] = 1, ["MoviesId"] = 1 },
                new Dictionary<string, object>() { ["CharacterId"] = 2, ["MoviesId"] = 1 },
                new Dictionary<string, object>() { ["CharacterId"] = 3, ["MoviesId"] = 1 },
-               new Dictionary<string, object>() { ["CharacterId"] = 4, ["MoviesId"] = 2 }
+               new Dictionary<string, object>() { ["CharacterId"] = 4, ["MoviesId"] = 2 },
+               new Dictionary<string, object>() { ["CharacterId"] = 5, ["MoviesId"] = 3 },
+
             };
         }
     }
