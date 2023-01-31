@@ -26,6 +26,10 @@ namespace Backend_Development_Assignment_3.Controllers
             _mapper = mapper;
         }
 
+        /// <summary>
+        /// Get Movies.
+        /// </summary>
+        /// <returns></returns>
         // GET: api/Movies
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Movie>>> GetMovies()
