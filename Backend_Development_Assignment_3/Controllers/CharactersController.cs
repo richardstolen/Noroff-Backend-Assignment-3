@@ -10,6 +10,7 @@ using Backend_Development_Assignment_3.Models;
 using NuGet.Versioning;
 using AutoMapper;
 using Backend_Development_Assignment_3.DTOs;
+using Backend_Development_Assignment_3.Services;
 
 namespace Backend_Development_Assignment_3.Controllers
 {
@@ -19,11 +20,13 @@ namespace Backend_Development_Assignment_3.Controllers
     {
         private readonly DataStoreDbContext _context;
         private readonly IMapper _mapper;
+        private readonly ICharacterService _service;
 
-        public CharactersController(DataStoreDbContext context, IMapper mapper)
+        public CharactersController(DataStoreDbContext context, IMapper mapper, ICharacterService service)
         {
             _context = context;
             _mapper = mapper;
+            _service = service;
         }
 
         // GET: api/Characters
@@ -33,22 +36,26 @@ namespace Backend_Development_Assignment_3.Controllers
             return _mapper.Map<List<CharacterReadDTO>>(await _context.Characters.ToListAsync());
         }
 
-
-
-
-
         // GET: api/Characters/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Character>> GetCharacter(int id)
         {
-            var character = await _context.Characters.FindAsync(id);
+            var character = await _service.GetCharacter(id);
 
             if (character == null)
             {
                 return NotFound();
             }
-
             return character;
+
+            //var character = await _context.Characters.FindAsync(id);
+
+            //if (character == null)
+            //{
+            //    return NotFound();
+            //}
+
+            //return character;
         }
 
         // PUT: api/Characters/5

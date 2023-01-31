@@ -1,5 +1,6 @@
 using AutoMapper;
 using Backend_Development_Assignment_3.Data;
+using Backend_Development_Assignment_3.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
@@ -50,6 +51,8 @@ namespace Backend_Development_Assignment_3
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
             });
+
+            builder.Services.AddScoped<ICharacterService, CharacterServices>();
 
             var app = builder.Build();
 
