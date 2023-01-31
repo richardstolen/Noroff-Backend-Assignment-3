@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Backend_Development_Assignment_3.Data;
 using Backend_Development_Assignment_3.Models;
+using NuGet.Versioning;
 
 namespace Backend_Development_Assignment_3.Controllers
 {
@@ -27,6 +28,17 @@ namespace Backend_Development_Assignment_3.Controllers
         {
             return await _context.Characters.ToListAsync();
         }
+
+        // GET: api/Characters/MovieId
+        [HttpGet("/movie/{id}")]
+        public async Task<ActionResult<IEnumerable<Character>>> GetCharactersFromMovies(int id)
+        {
+            var query = _context.Movies.Where(m => m.Id == id).SelectMany(m => m.Character);
+            var result = await query.ToListAsync();
+            return result;
+        }
+
+
 
         // GET: api/Characters/5
         [HttpGet("{id}")]
