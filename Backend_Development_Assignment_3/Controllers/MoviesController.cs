@@ -9,6 +9,7 @@ using Backend_Development_Assignment_3.Data;
 using Backend_Development_Assignment_3.Models;
 using System.Diagnostics;
 using System.Text.Json;
+using AutoMapper;
 
 namespace Backend_Development_Assignment_3.Controllers
 {
@@ -17,10 +18,12 @@ namespace Backend_Development_Assignment_3.Controllers
     public class MoviesController : ControllerBase
     {
         private readonly DataStoreDbContext _context;
+        private readonly IMapper _mapper;
 
-        public MoviesController(DataStoreDbContext context)
+        public MoviesController(DataStoreDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         // GET: api/Movies

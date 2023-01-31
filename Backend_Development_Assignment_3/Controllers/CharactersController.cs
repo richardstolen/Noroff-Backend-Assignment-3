@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using Backend_Development_Assignment_3.Data;
 using Backend_Development_Assignment_3.Models;
 using NuGet.Versioning;
+using AutoMapper;
+using Backend_Development_Assignment_3.DTOs;
 
 namespace Backend_Development_Assignment_3.Controllers
 {
@@ -16,17 +18,19 @@ namespace Backend_Development_Assignment_3.Controllers
     public class CharactersController : ControllerBase
     {
         private readonly DataStoreDbContext _context;
+        private readonly IMapper _mapper;
 
-        public CharactersController(DataStoreDbContext context)
+        public CharactersController(DataStoreDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         // GET: api/Characters
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Character>>> GetCharacters()
+        public async Task<ActionResult<IEnumerable<CharacterReadDTO>>> GetCharacters()
         {
-            return await _context.Characters.ToListAsync();
+            return _mapper.Map<List<CharacterReadDTO>>(await _context.Characters.ToListAsync());
         }
 
 
