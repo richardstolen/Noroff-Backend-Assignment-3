@@ -15,9 +15,14 @@ namespace Backend_Development_Assignment_3.Models
 
         public Gender Gender { get; set; }
 
-        [MaxLength(int.MaxValue)]
+        [MaxLength(255)]
         public string? PictureUrl { get; set; }
 
         public ICollection<Movie>? Movies { get; set; }
+    }
+    public enum Gender
+    {
+        Male,
+        Female
     }
 }

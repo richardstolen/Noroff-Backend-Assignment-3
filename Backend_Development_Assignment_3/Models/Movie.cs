@@ -4,6 +4,7 @@ namespace Backend_Development_Assignment_3.Models
 {
     public class Movie
     {
+        [Key]
         public int Id { get; set; }
 
         [Required]
@@ -24,7 +25,7 @@ namespace Backend_Development_Assignment_3.Models
         [MaxLength(255)]
         public string? TrailerUrl { get; set; }
 
-        public ICollection<Character>? Character { get; set; }
+        public ICollection<Character> Character { get; set; } = new List<Character>();
 
         public int FranchiseId { get; set; }
 
