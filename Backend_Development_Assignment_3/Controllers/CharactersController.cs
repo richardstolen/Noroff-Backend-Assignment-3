@@ -29,14 +29,7 @@ namespace Backend_Development_Assignment_3.Controllers
             return await _context.Characters.ToListAsync();
         }
 
-        // GET: api/Characters/MovieId
-        [HttpGet("/movie/{id}")]
-        public async Task<ActionResult<IEnumerable<Character>>> GetCharactersFromMovies(int id)
-        {
-            var query = _context.Movies.Where(m => m.Id == id).SelectMany(m => m.Character);
-            var result = await query.ToListAsync();
-            return result;
-        }
+
 
 
 
