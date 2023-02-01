@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Backend_Development_Assignment_3.DTOs.CharacterDTOs
 {
-    public class CharacterPostDTO
+    public class CharacterPutPostDTO
     {
         public string? FullName { get; set; }
         public string? Alias { get; set; }

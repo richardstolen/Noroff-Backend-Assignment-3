@@ -27,14 +27,21 @@ namespace Backend_Development_Assignment_3.Controllers
             _service = service;
         }
 
-
+        /// <summary>
+        /// Get all characters.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet] // GET: api/Characters
         public async Task<ActionResult<IEnumerable<CharacterReadDTO>>> GetCharacters()
         {
             return _mapper.Map<List<CharacterReadDTO>>(await _service.Get());
         }
 
-
+        /// <summary>
+        /// Get 1 Character with ID.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("{id}")] // GET: api/Characters/id
         public async Task<ActionResult<CharacterReadDTO>> GetCharacter(int id)
         {
@@ -48,18 +55,24 @@ namespace Backend_Development_Assignment_3.Controllers
 
         }
 
-
+        /// <summary>
+        /// Change Character with new data.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="character"></param>
+        /// <returns></returns>
         [HttpPut("{id}")] // PUT: api/Characters/id
-        public async Task<IActionResult> PutCharacter(int id, Character character)
+        public async Task<IActionResult> PutCharacter(int id, CharacterPutPostDTO character)
         {
-            if (id != character.Id)
+            var charDTO = _mapper.Map<Character>(character);
+            if (id != charDTO.Id)
             {
                 return BadRequest();
             }
 
             try
             {
-                await _service.Put(id, character);
+                await _service.Put(id, charDTO);
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -76,15 +89,20 @@ namespace Backend_Development_Assignment_3.Controllers
             return NoContent();
         }
 
-
+        /// <summary>
+        /// Create new Character.
+        /// </summary>
+        /// <param name="character"></param>
+        /// <returns></returns>
         [HttpPost] // POST: api/Characters
-        public async Task<ActionResult<Character>> PostCharacter(Character character)
+        public async Task<ActionResult<CharacterPutPostDTO>> PostCharacter(CharacterPutPostDTO character)
         {
             try
             {
-                await _service.Post(character);
+                var addCharacter = _mapper.Map<Character>(character);
+                await _service.Post(addCharacter);
 
-                return CreatedAtAction("GetCharacter", new { id = character.Id }, character);
+                return CreatedAtAction("GetCharacter", new { id = addCharacter.Id }, addCharacter);
             }
             catch (Exception)
             {
@@ -92,7 +110,11 @@ namespace Backend_Development_Assignment_3.Controllers
             }
         }
 
-
+        /// <summary>
+        /// Delete character with given ID.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpDelete("{id}")] // DELETE: api/Characters/id
         public async Task<IActionResult> DeleteCharacter(int id)
         {
@@ -108,6 +130,11 @@ namespace Backend_Development_Assignment_3.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// Check if character exists.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         private bool CharacterExists(int id)
         {
             return _service.Exists(id);

@@ -1,5 +1,6 @@
 ﻿using Backend_Development_Assignment_3.Data;
 using Backend_Development_Assignment_3.DTOs;
+using Backend_Development_Assignment_3.DTOs.CharacterDTOs;
 using Backend_Development_Assignment_3.Exceptions;
 using Backend_Development_Assignment_3.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -34,6 +35,7 @@ namespace Backend_Development_Assignment_3.Services
 
         public async Task Put(int id, Character entity)
         {
+
             _context.Entry(entity).State = EntityState.Modified;
             await _context.SaveChangesAsync();
         }
