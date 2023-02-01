@@ -10,7 +10,6 @@ namespace Backend_Development_Assignment_3.DTOs
         public string? Alias { get; set; }
         public Gender Gender { get; set; }
         public string? PictureUrl { get; set; }
-
-        public ICollection<int> Movies { get; set; }
+        public ICollection<string> Movies { get; set; }
     }
 }

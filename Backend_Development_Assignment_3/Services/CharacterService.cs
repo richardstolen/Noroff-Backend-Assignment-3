@@ -8,9 +8,9 @@ namespace Backend_Development_Assignment_3.Services
 {
     public interface ICharacterService
     {
-        Task<ActionResult<IEnumerable<Character>>> GetCustomers();
+        Task<IEnumerable<Character>> GetCharacters();
 
-        Task<ActionResult<Character>> GetCharacter(int id);
+        Task<Character> GetCharacter(int id);
     }
     public class CharacterServices : ICharacterService
     {
@@ -21,16 +21,14 @@ namespace Backend_Development_Assignment_3.Services
             _context = context;
         }
 
-        public async Task<ActionResult<Character>> GetCharacter(int id)
+        public async Task<Character> GetCharacter(int id)
         {
-            var character = await _context.Characters.FindAsync(id);
-
-            return character;
+            return await _context.Characters.Include(c => c.Movies).Where(c => c.Id == id).FirstOrDefaultAsync();
         }
 
-        public async Task<ActionResult<IEnumerable<Character>>> GetCustomers()
+        public async Task<IEnumerable<Character>> GetCharacters()
         {
-            return await _context.Characters.ToListAsync();
+            return await _context.Characters.Include(c => c.Movies).ToListAsync();
         }
     }
 }

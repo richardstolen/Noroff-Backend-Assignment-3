@@ -29,38 +29,29 @@ namespace Backend_Development_Assignment_3.Controllers
             _service = service;
         }
 
-        // GET: api/Characters
-        [HttpGet]
+
+        [HttpGet] // GET: api/Characters
         public async Task<ActionResult<IEnumerable<CharacterReadDTO>>> GetCharacters()
         {
-            return _mapper.Map<List<CharacterReadDTO>>(await _context.Characters.Include(c => c.Movies).ToListAsync());
+            return _mapper.Map<List<CharacterReadDTO>>(await _service.GetCharacters());
         }
 
-        // GET: api/Characters/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Character>> GetCharacter(int id)
-        {
-            var character = await _service.GetCharacter(id);
 
-            if (character.Value == null)
+        [HttpGet("{id}")] // GET: api/Characters/id
+        public async Task<ActionResult<CharacterReadDTO>> GetCharacter(int id)
+        {
+            var character = _mapper.Map<CharacterReadDTO>(await _service.GetCharacter(id));
+
+            if (character == null)
             {
                 return NotFound();
             }
             return character;
 
-            //var character = await _context.Characters.FindAsync(id);
-
-            //if (character == null)
-            //{
-            //    return NotFound();
-            //}
-
-            //return character;
         }
 
-        // PUT: api/Characters/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
+
+        [HttpPut("{id}")] // PUT: api/Characters/id
         public async Task<IActionResult> PutCharacter(int id, Character character)
         {
             if (id != character.Id)
@@ -89,9 +80,8 @@ namespace Backend_Development_Assignment_3.Controllers
             return NoContent();
         }
 
-        // POST: api/Characters
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
+
+        [HttpPost] // POST: api/Characters
         public async Task<ActionResult<Character>> PostCharacter(Character character)
         {
             _context.Characters.Add(character);
@@ -100,11 +90,12 @@ namespace Backend_Development_Assignment_3.Controllers
             return CreatedAtAction("GetCharacter", new { id = character.Id }, character);
         }
 
-        // DELETE: api/Characters/5
-        [HttpDelete("{id}")]
+
+        [HttpDelete("{id}")] // DELETE: api/Characters/id
         public async Task<IActionResult> DeleteCharacter(int id)
         {
             var character = await _context.Characters.FindAsync(id);
+
             if (character == null)
             {
                 return NotFound();
