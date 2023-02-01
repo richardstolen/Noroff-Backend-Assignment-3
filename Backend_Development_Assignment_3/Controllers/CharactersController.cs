@@ -9,8 +9,8 @@ using Backend_Development_Assignment_3.Data;
 using Backend_Development_Assignment_3.Models;
 using NuGet.Versioning;
 using AutoMapper;
-using Backend_Development_Assignment_3.DTOs;
 using Backend_Development_Assignment_3.Services;
+using Backend_Development_Assignment_3.DTOs.CharacterDTOs;
 
 namespace Backend_Development_Assignment_3.Controllers
 {
@@ -18,13 +18,11 @@ namespace Backend_Development_Assignment_3.Controllers
     [ApiController]
     public class CharactersController : ControllerBase
     {
-        private readonly DataStoreDbContext _context;
         private readonly IMapper _mapper;
         private readonly ICharacterService _service;
 
-        public CharactersController(DataStoreDbContext context, IMapper mapper, ICharacterService service)
+        public CharactersController(IMapper mapper, ICharacterService service)
         {
-            _context = context;
             _mapper = mapper;
             _service = service;
         }
@@ -33,14 +31,14 @@ namespace Backend_Development_Assignment_3.Controllers
         [HttpGet] // GET: api/Characters
         public async Task<ActionResult<IEnumerable<CharacterReadDTO>>> GetCharacters()
         {
-            return _mapper.Map<List<CharacterReadDTO>>(await _service.GetCharacters());
+            return _mapper.Map<List<CharacterReadDTO>>(await _service.Get());
         }
 
 
         [HttpGet("{id}")] // GET: api/Characters/id
         public async Task<ActionResult<CharacterReadDTO>> GetCharacter(int id)
         {
-            var character = _mapper.Map<CharacterReadDTO>(await _service.GetCharacter(id));
+            var character = _mapper.Map<CharacterReadDTO>(await _service.Get(id));
 
             if (character == null)
             {
@@ -59,11 +57,9 @@ namespace Backend_Development_Assignment_3.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(character).State = EntityState.Modified;
-
             try
             {
-                await _context.SaveChangesAsync();
+                await _service.Put(id, character);
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -84,32 +80,37 @@ namespace Backend_Development_Assignment_3.Controllers
         [HttpPost] // POST: api/Characters
         public async Task<ActionResult<Character>> PostCharacter(Character character)
         {
-            _context.Characters.Add(character);
-            await _context.SaveChangesAsync();
+            try
+            {
+                await _service.Post(character);
 
-            return CreatedAtAction("GetCharacter", new { id = character.Id }, character);
+                return CreatedAtAction("GetCharacter", new { id = character.Id }, character);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
         }
 
 
         [HttpDelete("{id}")] // DELETE: api/Characters/id
         public async Task<IActionResult> DeleteCharacter(int id)
         {
-            var character = await _context.Characters.FindAsync(id);
+            var character = await _service.Get(id);
 
             if (character == null)
             {
                 return NotFound();
             }
 
-            _context.Characters.Remove(character);
-            await _context.SaveChangesAsync();
+            await _service.Delete(character);
 
             return NoContent();
         }
 
         private bool CharacterExists(int id)
         {
-            return _context.Characters.Any(e => e.Id == id);
+            return _service.Exists(id);
         }
     }
 }

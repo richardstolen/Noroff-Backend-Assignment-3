@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Backend_Development_Assignment_3.Data;
 using Backend_Development_Assignment_3.Models;
+using AutoMapper;
+using Backend_Development_Assignment_3.DTOs.CharacterDTOs;
 
 namespace Backend_Development_Assignment_3.Controllers
 {
@@ -15,10 +17,13 @@ namespace Backend_Development_Assignment_3.Controllers
     public class FranchisesController : ControllerBase
     {
         private readonly DataStoreDbContext _context;
+        private readonly IMapper _mapper;
 
-        public FranchisesController(DataStoreDbContext context)
+
+        public FranchisesController(DataStoreDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         // GET: api/Franchises
@@ -127,13 +132,14 @@ namespace Backend_Development_Assignment_3.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("GetCharacters/{id}")]
-        public async Task<ActionResult<IEnumerable<Character>>> GetCharactersFromFranchise(int id)
+        public async Task<ActionResult<IEnumerable<CharacterReadDTO>>> GetCharactersFromFranchise(int id)
         {
-            var result = await _context.Franchises
+            var result = _mapper.Map<List<CharacterReadDTO>>(await _context.Franchises
                 .Where(f => f.Id == id)
                 .SelectMany(m => m.Movies)
                 .SelectMany(m => m.Character)
-                .ToListAsync();
+                .Include(c => c.Movies)
+                .ToListAsync());
 
             if (result != null)
             {
