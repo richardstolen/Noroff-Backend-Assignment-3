@@ -8,7 +8,10 @@ namespace Backend_Development_Assignment_3.Profiles
     {
         public CharacterProfile()
         {
-            CreateMap<Character, CharacterReadDTO>();
+            CreateMap<Character, CharacterReadDTO>()
+                .ForMember(cdto => cdto.Movies, opt => opt
+                    .MapFrom(c => c.Movies.Select(c => c.Id).ToArray()));
+            ;
         }
     }
 }

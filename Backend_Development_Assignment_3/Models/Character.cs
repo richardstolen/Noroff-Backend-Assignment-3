@@ -20,6 +20,7 @@ namespace Backend_Development_Assignment_3.Models
 
         public ICollection<Movie>? Movies { get; set; }
     }
+
     public enum Gender
     {
         Male,

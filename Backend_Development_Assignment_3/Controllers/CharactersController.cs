@@ -33,7 +33,7 @@ namespace Backend_Development_Assignment_3.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CharacterReadDTO>>> GetCharacters()
         {
-            return _mapper.Map<List<CharacterReadDTO>>(await _context.Characters.ToListAsync());
+            return _mapper.Map<List<CharacterReadDTO>>(await _context.Characters.Include(c => c.Movies).ToListAsync());
         }
 
         // GET: api/Characters/5
@@ -42,7 +42,7 @@ namespace Backend_Development_Assignment_3.Controllers
         {
             var character = await _service.GetCharacter(id);
 
-            if (character == null)
+            if (character.Value == null)
             {
                 return NotFound();
             }

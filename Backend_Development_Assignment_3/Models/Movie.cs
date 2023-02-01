@@ -25,11 +25,23 @@ namespace Backend_Development_Assignment_3.Models
         [MaxLength(255)]
         public string? TrailerUrl { get; set; }
 
-        public ICollection<Character> Character { get; set; } = new List<Character>();
+        public ICollection<Character>? Character { get; set; } = new List<Character>();
 
-        public int FranchiseId { get; set; }
+        public int? FranchiseId { get; set; }
 
         public Franchise? Franchise { get; set; }
 
+        public Movie()
+        {
+
+        }
+        public Movie(string title, string? genre, int releaseYear, string? director)
+        {
+
+            Title = title;
+            Genre = genre;
+            ReleaseYear = releaseYear;
+            Director = director;
+        }
     }
 }
