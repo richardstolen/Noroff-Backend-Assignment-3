@@ -124,8 +124,11 @@ namespace Backend_Development_Assignment_3.Controllers
         }
 
 
-
-
+        /// <summary>
+        /// Get all characters that are in a movie.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("Characters/{id}")] // GET: api/Characters/MovieId
         public async Task<ActionResult<IEnumerable<Character>>> GetCharactersFromMovies(int id)
         {
@@ -141,6 +144,12 @@ namespace Backend_Development_Assignment_3.Controllers
             }
         }
 
+        /// <summary>
+        /// Add characters to a Movie. Pass IDs of characters seperated by commas in a json string.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="content"></param>
+        /// <returns></returns>
         [HttpPut("UpdateCharacters/{id}")]
         public async Task<IActionResult> PutCharactersInMovie(int id, [FromBody] int[] content)
         {
