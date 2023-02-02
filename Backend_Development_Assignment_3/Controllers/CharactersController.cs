@@ -13,7 +13,6 @@ namespace Backend_Development_Assignment_3.Controllers
     {
         private readonly IMapper _mapper;
         private readonly ICharacterService _service;
-
         public CharactersController(IMapper mapper, ICharacterService service)
         {
             _mapper = mapper;

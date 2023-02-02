@@ -88,14 +88,14 @@ namespace Backend_Development_Assignment_3.Controllers
         /// <param name="entityDTO"></param>
         /// <returns></returns>
         [HttpPost] // POST: api/Movies
-        public async Task<ActionResult<MoviePostDTO>> PostCharacter(MoviePostDTO entityDTO)
+        public async Task<ActionResult<Movie>> PostMovie(MoviePostDTO entityDTO)
         {
             try
             {
                 var entity = _mapper.Map<Movie>(entityDTO);
                 await _service.Post(entity);
 
-                return CreatedAtAction("GetCharacter", new { id = entity.Id }, entity);
+                return CreatedAtAction("GetMovie", new { id = entity.Id }, entity);
             }
             catch (Exception)
             {
