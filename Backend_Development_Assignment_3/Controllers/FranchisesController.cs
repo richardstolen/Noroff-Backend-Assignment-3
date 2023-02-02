@@ -41,6 +41,7 @@ namespace Backend_Development_Assignment_3.Controllers
         /// <summary>
         /// Get 1 franchise with ID.
         /// </summary>
+        /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("{id}")]
         public async Task<ActionResult<Franchise>> GetFranchise(int id)
