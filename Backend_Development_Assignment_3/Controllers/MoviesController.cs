@@ -55,7 +55,7 @@ namespace Backend_Development_Assignment_3.Controllers
         /// <param name="entityDTO"></param>
         /// <returns></returns>
         [HttpPut("{id}")] // PUT: api/Movies/id
-        public async Task<IActionResult> PutCharacter(int id, MoviePutDTO entityDTO)
+        public async Task<IActionResult> PutMovie(int id, MoviePutDTO entityDTO)
         {
             var entity = _mapper.Map<Movie>(entityDTO);
             if (id != entity.Id)
@@ -109,7 +109,7 @@ namespace Backend_Development_Assignment_3.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpDelete("{id}")] // DELETE: api/Movies/id
-        public async Task<IActionResult> DeleteCharacter(int id)
+        public async Task<IActionResult> DeleteMovie(int id)
         {
             var entity = await _service.Get(id);
 

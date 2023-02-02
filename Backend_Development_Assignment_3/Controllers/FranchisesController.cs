@@ -9,6 +9,9 @@ using Backend_Development_Assignment_3.Data;
 using Backend_Development_Assignment_3.Models;
 using AutoMapper;
 using Backend_Development_Assignment_3.DTOs.CharacterDTOs;
+using Backend_Development_Assignment_3.Services;
+using Backend_Development_Assignment_3.DTOs.FranchiseDTOs;
+using Backend_Development_Assignment_3.DTOs.MovieDTOs;
 
 namespace Backend_Development_Assignment_3.Controllers
 {
@@ -16,28 +19,33 @@ namespace Backend_Development_Assignment_3.Controllers
     [ApiController]
     public class FranchisesController : ControllerBase
     {
-        private readonly DataStoreDbContext _context;
+        private readonly IFranchiseService _service;
         private readonly IMapper _mapper;
 
-
-        public FranchisesController(DataStoreDbContext context, IMapper mapper)
+        public FranchisesController(IFranchiseService service, IMapper mapper)
         {
-            _context = context;
+            _service = service;
             _mapper = mapper;
         }
 
-        // GET: api/Franchises
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Franchise>>> GetFranchises()
+        /// <summary>
+        /// Get all franchises.
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet] // GET: api/Franchise
+        public async Task<ActionResult<IEnumerable<FranchiseReadDTO>>> GetFranchises()
         {
-            return await _context.Franchises.ToListAsync();
+            return _mapper.Map<List<FranchiseReadDTO>>(await _service.Get());
         }
 
-        // GET: api/Franchises/5
+        /// <summary>
+        /// Get 1 franchise with ID.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("{id}")]
         public async Task<ActionResult<Franchise>> GetFranchise(int id)
         {
-            var franchise = await _context.Franchises.FindAsync(id);
+            var franchise = await _service.Get(id);
 
             if (franchise == null)
             {
@@ -47,21 +55,24 @@ namespace Backend_Development_Assignment_3.Controllers
             return franchise;
         }
 
-        // PUT: api/Franchises/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutFranchise(int id, Franchise franchise)
+        /// <summary>
+        /// Change franchise with new data.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="entityDTO"></param>
+        /// <returns></returns>
+        [HttpPut("{id}")] // PUT: api/Franchises/id
+        public async Task<IActionResult> PutFranchise(int id, FranchisePutDTO entityDTO)
         {
-            if (id != franchise.Id)
+            var entity = _mapper.Map<Franchise>(entityDTO);
+            if (id != entity.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(franchise).State = EntityState.Modified;
-
             try
             {
-                await _context.SaveChangesAsync();
+                await _service.Put(id, entity);
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -74,33 +85,46 @@ namespace Backend_Development_Assignment_3.Controllers
                     throw;
                 }
             }
-
             return NoContent();
         }
 
-        // POST: api/Franchises
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<Franchise>> PostFranchise(Franchise franchise)
+        /// <summary>
+        /// Create new Franchise.
+        /// </summary>
+        /// <param name="entityDTO"></param>
+        /// <returns></returns>
+        [HttpPost] // POST: api/Movies
+        public async Task<ActionResult<Franchise>> PostFranchise(FranchisePostDTO entityDTO)
         {
-            _context.Franchises.Add(franchise);
-            await _context.SaveChangesAsync();
+            try
+            {
+                var entity = _mapper.Map<Franchise>(entityDTO);
+                await _service.Post(entity);
 
-            return CreatedAtAction("GetFranchise", new { id = franchise.Id }, franchise);
+                return CreatedAtAction("GetFranchise", new { id = entity.Id }, entity);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
         }
 
-        // DELETE: api/Franchises/5
-        [HttpDelete("{id}")]
+        /// <summary>
+        /// Delete franchise with given ID.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpDelete("{id}")] // DELETE: api/Franchises/id
         public async Task<IActionResult> DeleteFranchise(int id)
         {
-            var franchise = await _context.Franchises.FindAsync(id);
-            if (franchise == null)
+            var entity = await _service.Get(id);
+
+            if (entity == null)
             {
                 return NotFound();
             }
 
-            _context.Franchises.Remove(franchise);
-            await _context.SaveChangesAsync();
+            await _service.Delete(entity);
 
             return NoContent();
         }
@@ -111,10 +135,9 @@ namespace Backend_Development_Assignment_3.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("GetMovies/{id}")]
-        public async Task<ActionResult<IEnumerable<Movie>>> GetMoviesFromFranchise(int id)
+        public async Task<ActionResult<IEnumerable<MovieReadDTO>>> GetMoviesFromFranchise(int id)
         {
-            var query = _context.Franchises.Where(m => m.Id == id).SelectMany(m => m.Movies);
-            var result = await query.ToListAsync();
+            var result = _mapper.Map<List<MovieReadDTO>>(await _service.GetMoviesFromFranchise(id));
 
             if (result != null)
             {
@@ -134,12 +157,7 @@ namespace Backend_Development_Assignment_3.Controllers
         [HttpGet("GetCharacters/{id}")]
         public async Task<ActionResult<IEnumerable<CharacterReadDTO>>> GetCharactersFromFranchise(int id)
         {
-            var result = _mapper.Map<List<CharacterReadDTO>>(await _context.Franchises
-                .Where(f => f.Id == id)
-                .SelectMany(m => m.Movies)
-                .SelectMany(m => m.Character)
-                .Include(c => c.Movies)
-                .ToListAsync());
+            var result = _mapper.Map<List<CharacterReadDTO>>(await _service.GetCharactersFromFranchise(id));
 
             if (result != null)
             {
@@ -160,20 +178,9 @@ namespace Backend_Development_Assignment_3.Controllers
         [HttpPut("UpdateMovies/{id}")]
         public async Task<IActionResult> PutMovieInFranchise(int id, [FromBody] int[] content)
         {
-            var franchise = await _context.Franchises.FindAsync(id);
-
-
-            for (int i = 0; i < content.Length; i++)
-            {
-                var movie = await _context.Movies.FindAsync(content[i]);
-
-                movie.FranchiseId = franchise.Id;
-                movie.Franchise = franchise;
-            }
-
             try
             {
-                await _context.SaveChangesAsync();
+                await _service.PutMovieInFranchise(id, content);
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -190,9 +197,14 @@ namespace Backend_Development_Assignment_3.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// Check if franchise exists.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         private bool FranchiseExists(int id)
         {
-            return _context.Franchises.Any(e => e.Id == id);
+            return _service.Exists(id);
         }
     }
 }
