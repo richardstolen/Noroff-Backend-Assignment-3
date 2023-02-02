@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Backend_Development_Assignment_3.Data;
 using Backend_Development_Assignment_3.Models;
-using NuGet.Versioning;
 using AutoMapper;
 using Backend_Development_Assignment_3.Services;
 using Backend_Development_Assignment_3.DTOs.CharacterDTOs;
@@ -45,13 +38,13 @@ namespace Backend_Development_Assignment_3.Controllers
         [HttpGet("{id}")] // GET: api/Characters/id
         public async Task<ActionResult<CharacterReadDTO>> GetCharacter(int id)
         {
-            var character = _mapper.Map<CharacterReadDTO>(await _service.Get(id));
+            var entity = _mapper.Map<CharacterReadDTO>(await _service.Get(id));
 
-            if (character == null)
+            if (entity == null)
             {
                 return NotFound();
             }
-            return character;
+            return entity;
 
         }
 
@@ -59,20 +52,20 @@ namespace Backend_Development_Assignment_3.Controllers
         /// Change Character with new data.
         /// </summary>
         /// <param name="id"></param>
-        /// <param name="character"></param>
+        /// <param name="entityDTO"></param>
         /// <returns></returns>
         [HttpPut("{id}")] // PUT: api/Characters/id
-        public async Task<IActionResult> PutCharacter(int id, CharacterPutPostDTO character)
+        public async Task<IActionResult> PutCharacter(int id, CharacterPutDTO entityDTO)
         {
-            var charDTO = _mapper.Map<Character>(character);
-            if (id != charDTO.Id)
+            var entity = _mapper.Map<Character>(entityDTO);
+            if (id != entity.Id)
             {
                 return BadRequest();
             }
 
             try
             {
-                await _service.Put(id, charDTO);
+                await _service.Put(id, entity);
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -92,17 +85,17 @@ namespace Backend_Development_Assignment_3.Controllers
         /// <summary>
         /// Create new Character.
         /// </summary>
-        /// <param name="character"></param>
+        /// <param name="entityDTO"></param>
         /// <returns></returns>
         [HttpPost] // POST: api/Characters
-        public async Task<ActionResult<CharacterPutPostDTO>> PostCharacter(CharacterPutPostDTO character)
+        public async Task<ActionResult<CharacterPostDTO>> PostCharacter(CharacterPostDTO entityDTO)
         {
             try
             {
-                var addCharacter = _mapper.Map<Character>(character);
-                await _service.Post(addCharacter);
+                var entity = _mapper.Map<Character>(entityDTO);
+                await _service.Post(entity);
 
-                return CreatedAtAction("GetCharacter", new { id = addCharacter.Id }, addCharacter);
+                return CreatedAtAction("GetCharacter", new { id = entity.Id }, entity);
             }
             catch (Exception)
             {
@@ -118,14 +111,14 @@ namespace Backend_Development_Assignment_3.Controllers
         [HttpDelete("{id}")] // DELETE: api/Characters/id
         public async Task<IActionResult> DeleteCharacter(int id)
         {
-            var character = await _service.Get(id);
+            var entity = await _service.Get(id);
 
-            if (character == null)
+            if (entity == null)
             {
                 return NotFound();
             }
 
-            await _service.Delete(character);
+            await _service.Delete(entity);
 
             return NoContent();
         }

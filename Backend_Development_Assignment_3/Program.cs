@@ -54,6 +54,7 @@ namespace Backend_Development_Assignment_3
             });
 
             builder.Services.AddScoped<ICharacterService, CharacterServices>();
+            builder.Services.AddScoped<IMovieService, MovieServices>();
 
             var app = builder.Build();
 

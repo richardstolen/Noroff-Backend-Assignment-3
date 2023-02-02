@@ -12,7 +12,8 @@ namespace Backend_Development_Assignment_3.Profiles
                 .ForMember(cdto => cdto.Movies, opt => opt
                     .MapFrom(c => c.Movies.Select(c => c.Title).ToArray()));
 
-            CreateMap<CharacterPutPostDTO, Character>();
+            CreateMap<CharacterPostDTO, Character>();
+            CreateMap<CharacterPutDTO, Character>();
         }
     }
 }
