@@ -23,7 +23,9 @@ Download and install:
 
 ### Backend API
 
-1. Build the docker image on local Docker using this command (or head over to Packages and registries -> Container Registry): <br/>         docker build -t registry.gitlab.com/richardstolen/backend-development-assignment-3 .
+1. Build the docker image on local Docker using this command (or head over to Packages and registries -> Container Registry): <br/>   
+
+    docker build -t registry.gitlab.com/richardstolen/backend-development-assignment-3 .
 
 2. Open in Visual Studio the 'Backend_Development_Assignment_3.csproj' solution. Run the program by clicking on F5 or on start debugging.
 
