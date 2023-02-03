@@ -31,7 +31,7 @@ namespace Backend_Development_Assignment_3.Controllers
         /// <summary>
         /// Get all franchises.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Collection of all Franchise objects in the database</returns>
         [HttpGet] // GET: api/Franchise
         public async Task<ActionResult<IEnumerable<FranchiseReadDTO>>> GetFranchises()
         {
@@ -41,8 +41,9 @@ namespace Backend_Development_Assignment_3.Controllers
         /// <summary>
         /// Get 1 franchise with ID.
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
+        /// <param name="id">The id of the Franchise</param>
+        /// <returns>Franchise object</returns>
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpGet("{id}")]
         public async Task<ActionResult<Franchise>> GetFranchise(int id)
         {
@@ -59,9 +60,12 @@ namespace Backend_Development_Assignment_3.Controllers
         /// <summary>
         /// Change franchise with new data.
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="id">Id of the Franchise to update</param>
         /// <param name="entityDTO"></param>
-        /// <returns></returns>
+        /// <returns>Bad request/NotFound/No Content</returns>
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         [HttpPut("{id}")] // PUT: api/Franchises/id
         public async Task<IActionResult> PutFranchise(int id, FranchisePutDTO entityDTO)
         {
@@ -93,7 +97,8 @@ namespace Backend_Development_Assignment_3.Controllers
         /// Create new Franchise.
         /// </summary>
         /// <param name="entityDTO"></param>
-        /// <returns></returns>
+        /// <returns>Returns the created Franchise object or Bad Request</returns>
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpPost] // POST: api/Movies
         public async Task<ActionResult<Franchise>> PostFranchise(FranchisePostDTO entityDTO)
         {
@@ -113,8 +118,10 @@ namespace Backend_Development_Assignment_3.Controllers
         /// <summary>
         /// Delete franchise with given ID.
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
+        /// <param name="id">Id of the Franchise to delete</param>
+        /// <returns>Not Found/ No Content</returns>
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         [HttpDelete("{id}")] // DELETE: api/Franchises/id
         public async Task<IActionResult> DeleteFranchise(int id)
         {
@@ -133,8 +140,10 @@ namespace Backend_Development_Assignment_3.Controllers
         /// <summary>
         /// Get all the movies in a franchise.
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
+        /// <param name="id">Id of the Franchise</param>
+        /// <returns>Collection of movie objects in given Franchise</returns>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         [HttpGet("GetMovies/{id}")]
         public async Task<ActionResult<IEnumerable<MovieReadDTO>>> GetMoviesFromFranchise(int id)
         {
@@ -153,8 +162,10 @@ namespace Backend_Development_Assignment_3.Controllers
         /// <summary>
         /// Get all the characters in a franchise.
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
+        /// <param name="id">Id of the Franchise you want to get all characters from</param>
+        /// <returns>Collection of character objects for the given Franchise</returns>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         [HttpGet("GetCharacters/{id}")]
         public async Task<ActionResult<IEnumerable<CharacterReadDTO>>> GetCharactersFromFranchise(int id)
         {
@@ -173,9 +184,11 @@ namespace Backend_Development_Assignment_3.Controllers
         /// <summary>
         /// Update movies to be in a given franchise.
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="id">Id of the Franchise to update</param>
         /// <param name="content"></param>
-        /// <returns></returns>
+        /// <returns>Not Found/ No Content</returns>
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         [HttpPut("UpdateMovies/{id}")]
         public async Task<IActionResult> PutMovieInFranchise(int id, [FromBody] int[] content)
         {
@@ -201,8 +214,8 @@ namespace Backend_Development_Assignment_3.Controllers
         /// <summary>
         /// Check if franchise exists.
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
+        /// <param name="id">Id of Franchise to check</param>
+        /// <returns>True if Franchise exist in database and false if it doesn`t exist</returns>
         private bool FranchiseExists(int id)
         {
             return _service.Exists(id);
