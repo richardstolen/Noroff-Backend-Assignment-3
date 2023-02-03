@@ -32,7 +32,6 @@ namespace Backend_Development_Assignment_3.Services
         public async Task<Franchise> Get(int id)
         {
             return await _context.Franchises.Where(c => c.Id == id).FirstOrDefaultAsync();
-
         }
 
         public async Task Put(int id, Franchise entity)
@@ -49,6 +48,14 @@ namespace Backend_Development_Assignment_3.Services
 
         public async Task Delete(Franchise entity)
         {
+            // Set all franchiseIds of the movies in the franchise to null 
+            var movies = await GetMoviesFromFranchise(entity.Id);
+            foreach (var movie in movies)
+            {
+                movie.FranchiseId = null;
+            }
+
+            // Remove the franchise
             _context.Franchises.Remove(entity);
             await _context.SaveChangesAsync();
         }
