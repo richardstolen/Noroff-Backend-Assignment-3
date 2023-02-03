@@ -159,6 +159,7 @@ namespace Backend_Development_Assignment_3.Controllers
         /// The content paramters is an array of integers that represent the id of the characters being added to the movie</param>
         /// <returns>Not found/ No content</returns>
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpPut("UpdateCharacters/{id}")]
         public async Task<IActionResult> PutCharactersInMovie(int id, [FromBody] int[] content)
         {

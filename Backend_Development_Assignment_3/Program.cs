@@ -25,14 +25,16 @@ namespace Backend_Development_Assignment_3
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Version = "v1",
-                    Title = "ToDo API",
-                    Description = "A simple example ASP.NET Core Web API",
+                    Title = "Assignment 3 API",
+                    Description = "ASP.NET Core Web API for assignment 3. " +
+                    "Contains API for altering a database consisting of: \n" +
+                    "Franchises, Movies and Characters",
                     TermsOfService = new Uri("https://example.com/terms"),
                     Contact = new OpenApiContact
                     {
                         Name = "Richard and Ida",
                         Email = string.Empty,
-                        Url = new Uri("https://twitter.com/spboyer"),
+                        Url = new Uri("https://example.com"),
                     },
 
                     License = new OpenApiLicense

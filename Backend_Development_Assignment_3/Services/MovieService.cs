@@ -98,7 +98,7 @@ namespace Backend_Development_Assignment_3.Services
             {
                 var character = await _context.Characters.FindAsync(content[i]);
 
-                if (!charactersInMovie.Contains(character))
+                if (movie != null && Exists(movie.Id) &&!charactersInMovie.Contains(character) && character != null)
                 {
                     movie.Character.Add(character);
                 }

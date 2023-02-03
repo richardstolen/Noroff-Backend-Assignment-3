@@ -20,7 +20,7 @@ namespace Backend_Development_Assignment_3.Controllers
         }
 
         /// <summary>
-        /// Gets all characters in the database.
+        /// Get all characters in the database.
         /// </summary>
         /// <returns>A collection of character objects</returns>
         [HttpGet] // GET: api/Characters
@@ -30,7 +30,7 @@ namespace Backend_Development_Assignment_3.Controllers
         }
 
         /// <summary>
-        /// Gets a character by their id.
+        /// Get a character with ID.
         /// </summary>
         /// <param name="id">Character`s id</param>
         /// <returns>A character object</returns>
