@@ -19,6 +19,10 @@ Download and install:
 
 ### Database
 
+To make it easy to connect Keycloak to LDAP and the mail server create a user defined network:
+
+    docker network create demo-network
+
 1. Running the command *update-database* in the Package Manager Console in Visual studio.
 
 ### Backend API
