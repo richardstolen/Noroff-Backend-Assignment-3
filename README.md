@@ -13,7 +13,7 @@ This assignment is divided into two sections: Creating a database with **EF Code
 Download and install: 
 * [SQL Server Management Studio](https://docs.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms?view=sql-server-ver15)
 * [.Net 4.5.1 or later](https://dotnet.microsoft.com/en-us/download/dotnet)
-* [Docker Desktop (Optional)](https://www.docker.com/products/docker-desktop/)
+* [Docker Desktop](https://www.docker.com/products/docker-desktop/)
 
 ## How to run
 
