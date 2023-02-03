@@ -39,9 +39,9 @@ namespace Backend_Development_Assignment_3.Controllers
         /// <returns>Franchise object</returns>
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpGet("{id}")]
-        public async Task<ActionResult<Franchise>> GetFranchise(int id)
+        public async Task<ActionResult<FranchiseReadDTO>> GetFranchise(int id)
         {
-            var franchise = await _service.Get(id);
+            var franchise = _mapper.Map<FranchiseReadDTO>(await _service.Get(id));
 
             if (franchise == null)
             {

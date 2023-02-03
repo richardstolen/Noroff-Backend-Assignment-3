@@ -8,7 +8,9 @@ namespace Backend_Development_Assignment_3.Profiles
     {
         public FranchiseProfile()
         {
-            CreateMap<Franchise, FranchiseReadDTO>();
+            CreateMap<Franchise, FranchiseReadDTO>()
+                .ForMember(cdto => cdto.Movies, opt => opt
+                    .MapFrom(c => c.Movies.Select(c => c.Title).ToArray())); ;
 
 
             CreateMap<FranchisePostDTO, Franchise>();

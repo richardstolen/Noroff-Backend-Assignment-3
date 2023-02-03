@@ -25,7 +25,7 @@ namespace Backend_Development_Assignment_3.Services
         /// <returns>Collection of all Franchise objects in the database</returns>
         public async Task<IEnumerable<Franchise>> Get()
         {
-            return await _context.Franchises.ToListAsync();
+            return await _context.Franchises.Include(m => m.Movies).ToListAsync();
         }
 
         /// <summary>
@@ -35,7 +35,7 @@ namespace Backend_Development_Assignment_3.Services
         /// <returns>Franchise object</returns>
         public async Task<Franchise> Get(int id)
         {
-            return await _context.Franchises.Where(c => c.Id == id).FirstOrDefaultAsync();
+            return await _context.Franchises.Where(c => c.Id == id).Include(m => m.Movies).FirstOrDefaultAsync();
 
         }
 
