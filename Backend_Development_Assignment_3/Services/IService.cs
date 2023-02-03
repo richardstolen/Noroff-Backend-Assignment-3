@@ -1,6 +1,4 @@
-﻿using Backend_Development_Assignment_3.Models;
-
-namespace Backend_Development_Assignment_3.Services
+﻿namespace Backend_Development_Assignment_3.Services
 {
     public interface IService<T>
     {

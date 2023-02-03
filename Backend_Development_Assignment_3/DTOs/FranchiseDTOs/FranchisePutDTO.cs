@@ -1,7 +1,4 @@
-﻿using Backend_Development_Assignment_3.Models;
-using System.ComponentModel.DataAnnotations;
-
-namespace Backend_Development_Assignment_3.DTOs.FranchiseDTOs
+﻿namespace Backend_Development_Assignment_3.DTOs.FranchiseDTOs
 {
     public class FranchisePutDTO
     {

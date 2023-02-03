@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Backend_Development_Assignment_3.Data;
 using Backend_Development_Assignment_3.Models;
 using AutoMapper;
 using Backend_Development_Assignment_3.DTOs.CharacterDTOs;

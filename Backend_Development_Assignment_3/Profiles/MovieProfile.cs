@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Backend_Development_Assignment_3.DTOs.CharacterDTOs;
 using Backend_Development_Assignment_3.DTOs.MovieDTOs;
 using Backend_Development_Assignment_3.Models;
 

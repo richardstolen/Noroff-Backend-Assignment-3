@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Backend_Development_Assignment_3.DTOs.MovieDTOs
+﻿namespace Backend_Development_Assignment_3.DTOs.MovieDTOs
 {
     public class MovieReadDTO
     {
