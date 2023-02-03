@@ -7,7 +7,6 @@
         public string? Genre { get; set; }
         public int ReleaseYear { get; set; }
         public string? Director { get; set; }
-
-
+        public ICollection<string> Characters { get; set; }
     }
 }

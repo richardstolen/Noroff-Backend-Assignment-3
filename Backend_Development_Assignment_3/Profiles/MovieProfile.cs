@@ -8,8 +8,9 @@ namespace Backend_Development_Assignment_3.Profiles
     {
         public MovieProfile()
         {
-            CreateMap<Movie, MovieReadDTO>();
-
+            CreateMap<Movie, MovieReadDTO>()
+                .ForMember(cdto => cdto.Characters, opt => opt
+                    .MapFrom(c => c.Character.Select(c => c.FullName).ToArray()));
 
             CreateMap<MoviePostDTO, Movie>();
             CreateMap<MoviePutDTO, Movie>();

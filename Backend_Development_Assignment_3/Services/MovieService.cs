@@ -24,7 +24,7 @@ namespace Backend_Development_Assignment_3.Services
         /// <returns>List of movie objects</returns>
         public async Task<IEnumerable<Movie>> Get()
         {
-            return await _context.Movies.ToListAsync();
+            return await _context.Movies.Include(c => c.Character).ToListAsync();
         }
 
         /// <summary>
@@ -34,7 +34,7 @@ namespace Backend_Development_Assignment_3.Services
         /// <returns>Movie object</returns>
         public async Task<Movie> Get(int id)
         {
-            return await _context.Movies.Where(c => c.Id == id).FirstOrDefaultAsync();
+            return await _context.Movies.Where(c => c.Id == id).Include(c => c.Character).FirstOrDefaultAsync();
 
         }
 
