@@ -27,7 +27,7 @@ To make it easy to connect Keycloak to LDAP and the mail server create a user de
 
 ### Backend API
 
-1. Build the docker image on local Docker using this command (or head over to Packages and registries -> Container Registry): <br/>   
+1. Build the docker image on local Docker using this command (or head over to Packages and registries -> Container Registry):  
 
     docker build -t registry.gitlab.com/richardstolen/backend-development-assignment-3 .
 
