@@ -37,6 +37,16 @@ namespace Backend_Development_Assignment_3.Data
                     PictureUrl="https://m.media-amazon.com/images/M/MV5BMTA2MDU0MjM0MzReQTJeQWpwZ15BbWU3MDYwNzgwNzE@._V1_.jpg",
                     TrailerUrl="https://www.youtube.com/watch?v=lkN-A00WLYE",
                     FranchiseId=3,
+                },
+                new Movie() {
+                    Id=4,
+                    Title="The Hobbit - an unexpected journey",
+                    Genre="Fantasy",
+                    ReleaseYear=2012,
+                    Director="Carolynne Cunningham",
+                    PictureUrl="https://static1.colliderimages.com/wordpress/wp-content/uploads/2021/08/the-hobbit-an-unexpected-journey.jpg?q=50&fit=contain&w=1140&h=&dpr=1.5",
+                    TrailerUrl="https://www.youtube.com/watch?v=SDnYMbYB-nU",
+                    FranchiseId = 1,
                 }
             };
         }
@@ -86,6 +96,20 @@ namespace Backend_Development_Assignment_3.Data
                     Alias="null",
                     Gender=Gender.Female,
                     PictureUrl="https://upload.wikimedia.org/wikipedia/en/5/5e/Ron_Weasley_poster.jpg"
+                },
+                new Character() {
+                    Id=7,
+                    FullName="Bilbo Baggins",
+                    Alias="null",
+                    Gender=Gender.Male,
+                    PictureUrl="https://static01.nyt.com/images/2012/12/14/arts/14HOBBIT/14HOBBIT-superJumbo.jpg"
+                },
+                new Character() {
+                    Id=8,
+                    FullName="Smaug",
+                    Alias="null",
+                    Gender=Gender.Male,
+                    PictureUrl="https://static.wikia.nocookie.net/lotr/images/6/6a/%22And_do_you_now%3F%22.JPG/revision/latest?cb=20210913160938"
                 }
             };
         }
@@ -125,7 +149,9 @@ namespace Backend_Development_Assignment_3.Data
                new Dictionary<string, object>() { ["CharacterId"] = 3, ["MoviesId"] = 1 },
                new Dictionary<string, object>() { ["CharacterId"] = 4, ["MoviesId"] = 2 },
                new Dictionary<string, object>() { ["CharacterId"] = 5, ["MoviesId"] = 3 },
-
+               new Dictionary<string, object>() { ["CharacterId"] = 7, ["MoviesId"] = 1 },
+               new Dictionary<string, object>() { ["CharacterId"] = 7, ["MoviesId"] = 4 },
+               new Dictionary<string, object>() { ["CharacterId"] = 8, ["MoviesId"] = 4 },
             };
         }
     }

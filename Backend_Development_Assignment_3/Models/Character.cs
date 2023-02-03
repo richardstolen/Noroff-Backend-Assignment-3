@@ -4,6 +4,9 @@ namespace Backend_Development_Assignment_3.Models
 {
     public class Character
     {
+        /// <summary>
+        /// Model of the table Character
+        /// </summary>
         [Key]
         public int Id { get; set; }
 

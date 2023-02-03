@@ -2,6 +2,9 @@
 
 namespace Backend_Development_Assignment_3.Models
 {
+    /// <summary>
+    /// Model of the table Movie
+    /// </summary>
     public class Movie
     {
         [Key]

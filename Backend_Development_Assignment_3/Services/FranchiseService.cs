@@ -71,6 +71,7 @@ namespace Backend_Development_Assignment_3.Services
                 .SelectMany(m => m.Movies)
                 .SelectMany(m => m.Character)
                 .Include(c => c.Movies)
+                .Distinct()
                 .ToListAsync();
         }
 
