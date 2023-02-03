@@ -92,13 +92,18 @@ namespace Backend_Development_Assignment_3.Services
         public async Task PutCharactersInMovie(int id, int[] content)
         {
             var movie = await _context.Movies.FindAsync(id);
+            var charactersInMovie = await GetCharactersFromMovies(id);
 
             for (int i = 0; i < content.Length; i++)
             {
                 var character = await _context.Characters.FindAsync(content[i]);
 
-                movie.Character.Add(character);
+                if (!charactersInMovie.Contains(character))
+                {
+                    movie.Character.Add(character);
+                }
             }
+
             await _context.SaveChangesAsync();
         }
 
