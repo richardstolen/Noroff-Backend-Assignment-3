@@ -4,6 +4,7 @@ using Backend_Development_Assignment_3.Models;
 using AutoMapper;
 using Backend_Development_Assignment_3.Services;
 using Backend_Development_Assignment_3.DTOs.MovieDTOs;
+using Backend_Development_Assignment_3.DTOs.CharacterDTOs;
 
 namespace Backend_Development_Assignment_3.Controllers
 {
@@ -136,9 +137,9 @@ namespace Backend_Development_Assignment_3.Controllers
         /// <returns>Collection of character objects</returns>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [HttpGet("Characters/{id}")] // GET: api/Characters/MovieId
-        public async Task<ActionResult<IEnumerable<Character>>> GetCharactersFromMovies(int id)
+        public async Task<ActionResult<IEnumerable<CharacterReadDTO>>> GetCharactersFromMovies(int id)
         {
-            var result = await _service.GetCharactersFromMovies(id);
+            var result = _mapper.Map<List<CharacterReadDTO>>(await _service.GetCharactersFromMovies(id));
 
             if (result != null)
             {

@@ -79,7 +79,7 @@ namespace Backend_Development_Assignment_3.Services
         /// <returns>Collection of character objects</returns>
         public async Task<IEnumerable<Character>> GetCharactersFromMovies(int id)
         {
-            return await _context.Movies.Where(m => m.Id == id).SelectMany(m => m.Character).ToListAsync();
+            return await _context.Movies.Where(m => m.Id == id).SelectMany(m => m.Character).Include(c => c.Movies).ToListAsync();
         }
 
         /// <summary>
