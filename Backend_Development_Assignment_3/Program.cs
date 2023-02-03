@@ -55,6 +55,9 @@ namespace Backend_Development_Assignment_3
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
             });
 
+            /*
+             * Dependency injection for services
+             */
             builder.Services.AddScoped<ICharacterService, CharacterServices>();
             builder.Services.AddScoped<IMovieService, MovieServices>();
             builder.Services.AddScoped<IFranchiseService, FranchiseServices>();
