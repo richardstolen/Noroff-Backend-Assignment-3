@@ -1,7 +1,6 @@
 <div align="center">
     <h1>Noroff Assignment 3: WEB API creation in ASP.NET CORE</h1>
     <img src="https://img.icons8.com/cotton/1x/api.png" width="128" alt="API">
-    <img src="https://img.icons8.com/external-smashingstocks-mixed-smashing-stocks/256/external-api-web-analytics-smashingstocks-mixed-smashing-stocks.png" width="128" alt="API">
 </div>
 
 [![license](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
